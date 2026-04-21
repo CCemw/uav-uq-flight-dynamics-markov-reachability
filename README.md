@@ -21,6 +21,8 @@ The methodology is deliberately not specific to the QAV250. The platform paramet
 ---
 
 ## Repository layout
+
+```
 uav-uq-flight-dynamics-markov-reachability/
 ├── 00_inputs/                     Platform parameters and blade-section polars
 ├── 01_uncertainty_quantification/ Polar uncertainty characterisation (plot only)
@@ -31,6 +33,7 @@ uav-uq-flight-dynamics-markov-reachability/
 ├── dissertation.pdf               Full written dissertation (methodology + results)
 ├── LICENSE                        MIT
 └── README.md                      This file
+```
 
 Each folder has its own `README.md` describing its scripts, data files, and the settings a user would most likely want to change. The per-folder READMEs are the practical reference (for extensibility etc.), and this README guides the full structure and usage.
 
@@ -38,17 +41,17 @@ Each folder has its own `README.md` describing its scripts, data files, and the 
 
 ## How the five stages fit together
 
-**Stage 0 — Inputs.** `00_inputs/platform/platform_parameters.m` defines mass, geometry, inertia, blade planform, and fuselage coefficients. `00_inputs/polars/afl{13,14,15}.c81.txt` are the three measured blade-section polars that together bracket the manufacturing variation. All downstream stages read from here.
+**Stage 0: Inputs.** `00_inputs/platform/platform_parameters.m` defines mass, geometry, inertia, blade planform, and fuselage coefficients. `00_inputs/polars/afl{13,14,15}.c81.txt` are the three measured blade-section polars that together bracket the manufacturing variation. All downstream stages read from here.
 
-**Stage 1 — Uncertainty quantification.** `01_uncertainty_quantification/plot_polar_uncertainty.m` reads the three polars and produces the mean ± σ envelope used throughout the rest of the pipeline. σ is derived from the range of the three measurements divided by the Tippett constant d₂.
+**Stage 1: Uncertainty quantification.** `01_uncertainty_quantification/plot_polar_uncertainty.m` reads the three polars and produces the mean ± σ envelope used throughout the rest of the pipeline. σ is derived from the range of the three measurements divided by the Tippett constant d₂.
 
-**Stage 2 — Trim.** `02_trim_monte_carlo/` contains two runnable scripts. `run_nominal_trim_range.m` sweeps forward airspeed with the nominal polars only, producing the baseline trim envelope in about one minute. `run_mc_trim_range.m` runs the same sweep 500 times with common random numbers applied to the blade polars and twist. The resulting probability-of-trim envelope is the central input to the downstream Markov chain.
+**Stage 2: Trim.** `02_trim_monte_carlo/` contains two runnable scripts. `run_nominal_trim_range.m` sweeps forward airspeed with the nominal polars only, producing the baseline trim envelope in about one minute. `run_mc_trim_range.m` runs the same sweep 500 times with common random numbers applied to the blade polars and twist. The resulting probability-of-trim envelope is the central input to the downstream Markov chain.
 
-**Stage 3 — Stability.** `03_stability/stability_analysis_mc.m` linearises the six-degree-of-freedom dynamics about each trimmed state and computes the eigenvalues, nominal and Monte Carlo. 
+**Stage 3: Stability.** `03_stability/stability_analysis_mc.m` linearises the six-degree-of-freedom dynamics about each trimmed state and computes the eigenvalues, nominal and Monte Carlo. 
 
-**Stage 4 — Closed-loop manoeuvre.** `04_closed_loop_manoeuvre/closed_loop_manoeuvre_mc.m` simulates the time-domain pitch response to a rear-rotor RPM pulse under a cascaded PID controller. It is run four times: nominal and Monte Carlo, each at V = 5 and V = 15. (can be changed of course)
+**Stage 4: Closed-loop manoeuvre.** `04_closed_loop_manoeuvre/closed_loop_manoeuvre_mc.m` simulates the time-domain pitch response to a rear-rotor RPM pulse under a cascaded PID controller. It is run four times: nominal and Monte Carlo, each at V = 5 and V = 15. (can be changed of course)
 
-**Stage 5 — Mission DTMC.** `05_mission_dtmc/mission_dtmc.m` evolves a four-state chain (Normal Flight, Degraded Flight, Abort, Crash) through a user-defined mission. The per-phase transition probabilities are derived by convolving the P(trim) envelope from Stage 2 with a low-altitude Dryden gust distribution at the phase altitude. The final state distribution gives the probability of each mission outcome. Crash probability divided by mission duration gives the per-flight-hour crash rate which is compared against the JARUS SORA SAIL thresholds.
+**Stage 5: Mission DTMC.** `05_mission_dtmc/mission_dtmc.m` evolves a four-state chain (Normal Flight, Degraded Flight, Abort, Crash) through a user-defined mission. The per-phase transition probabilities are derived by convolving the P(trim) envelope from Stage 2 with a low-altitude Dryden gust distribution at the phase altitude. The final state distribution gives the probability of each mission outcome. Crash probability divided by mission duration gives the per-flight-hour crash rate which is compared against the JARUS SORA SAIL thresholds.
 
 ---
 
@@ -72,13 +75,14 @@ Each script writes its output to a `results/` subfolder within the same stage fo
 The only cross-folder read in the repository is the DTMC, which loads the trim Monte Carlo result from `02_trim_monte_carlo/results/`. All other stages re-trim internally when needed so they are independently runnable.
 
 ### Expected runtimes
-| Script                               | Runtime     
--------------------------------------------------------------
-| `run_nominal_trim_range`             | ~ seconds - minutes   
-| `run_mc_trim_range`                  | ~ can be multiple hours (longest)
-| `stability_analysis_mc`              | ~ can be multiple hours
-| `closed_loop_manoeuvre_mc` (V=15 MC) | ~ can be a few hours
-| `mission_dtmc`                       | ~ few seconds
+
+| Script                               | Runtime                        |
+|--------------------------------------|--------------------------------|
+| `run_nominal_trim_range`             | seconds to minutes             |
+| `run_mc_trim_range`                  | multiple hours (longest)       |
+| `stability_analysis_mc`              | multiple hours                 |
+| `closed_loop_manoeuvre_mc` (V=15 MC) | a few hours                    |
+| `mission_dtmc`                       | a few seconds                  |
 
 All plotting scripts run in seconds and read from the committed `.mat` files, so anyone can regenerate every figure in the dissertation without re-running any Monte Carlo.
 
