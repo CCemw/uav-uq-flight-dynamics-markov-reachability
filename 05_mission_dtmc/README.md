@@ -49,7 +49,7 @@ These are the dominant free parameters in the DTMC. The current values are chose
 
 ### Atmospheric model
 
-`W20_kt` (wind at 20 ft, in knots), `h_urban_table` and `f_urban_table` (altitude-to-urban-intensity mapping), and `f_Lu` (urban correlation-length factor) are exposed at the top. The low-altitude Dryden form is MIL-F-8785C; the urban correction factors come from the literature survey in dissertation Chapter 2.
+`W20_kt` (wind at 20 ft, in knots), `h_urban_table` and `f_urban_table` (altitude-to-urban-intensity mapping), and `f_Lu` (urban correlation-length factor) are exposed at the top. The low-altitude Dryden form is MIL-F-8785C; the urban correction factors come from the literature survey in Chapter 2 of the dissertation.
 
 ### Cruise speeds analysed
 
