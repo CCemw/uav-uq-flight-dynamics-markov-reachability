@@ -35,7 +35,7 @@ mission = {
 };
 ```
 
-Each row is one phase: name, nominal airspeed (m/s), altitude (m), duration (s). Add rows, remove rows, or edit values freely. The "Cruise" phase (second row) receives a special substitution: its airspeed is overridden by the cruise speed being analysed, so the user can sweep over cruise speeds without editing the profile.
+Each row is one phase: name, nominal airspeed (m/s), altitude (m), duration (s). Add rows, remove rows, or edit values freely. The "Cruise" phase (second row) receives a special substitution: its airspeed is overridden by the cruise speed being analysed, so the user can vary cruise speeds without editing the profile.
 
 ### Contingency routing parameters
 
