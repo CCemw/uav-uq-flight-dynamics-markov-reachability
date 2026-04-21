@@ -1,4 +1,4 @@
-# 00_inputs — Platform parameters and blade-section polars
+# 00_inputs: Platform parameters and blade-section polars
 
 Shared inputs consumed by every downstream stage. Nothing is computed here and this folder just holds the data.
 
