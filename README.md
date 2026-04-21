@@ -98,9 +98,9 @@ Each stage folder's `README.md` lists the adjustments that can be made to each s
 - **Twist uncertainty.** Adjusted at the top of each Monte Carlo script (`sigma_twist` parameter).
 - **Number of MC samples and RNG seed.** Top of each Monte Carlo script (`N_MC`, `RNG_SEED`).
 - **Manoeuvre disturbance and PID gains.** Top of `closed_loop_manoeuvre_mc.m` — pulse magnitude, pulse duration, trim speed, and all four controller gains are exposed.
-- **Mission profile.** Top of `mission_dtmc.m` — the mission is a cell array where each row is one phase. Add or remove rows, change phase durations, altitudes, or speeds.
-- **Contingency routing.** Top of `mission_dtmc.m` — the emergency-landing success probability η, the degraded-state landing probability η_DF, and the severity-routing parameter s are exposed as scalars.
-- **Atmospheric model.** Top of `mission_dtmc.m` — baseline wind, urban intensity scaling table, and correlation-length factor are editable.
+- **Mission profile.** Top of `mission_dtmc.m`: the mission is a cell array where each row is one phase. Add or remove rows, change phase durations, altitudes, or speeds.
+- **Contingency routing.** Top of `mission_dtmc.m`: the emergency-landing success probability η, the degraded-state landing probability η_DF, and the severity-routing parameter s are exposed as scalars.
+- **Atmospheric model.** Top of `mission_dtmc.m`: baseline wind, urban intensity scaling table, and correlation-length factor are editable.
 - **SAIL thresholds.** The JARUS SORA table at the top of `mission_dtmc.m` can be replaced with any other regulatory threshold set.
 
 ## Extending the methodology/framework
