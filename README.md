@@ -11,13 +11,13 @@ University of Glasgow, 2026
 
 ## What this repository is
 
-A MATLAB implementation of a general methodology for propagating blade-section manufacturing variability through the complete flight-dynamics pipeline of a small quadrotor UAV, demonstrated on the QAV250 Holybro UAV with APC 5×4.5" three-bladed propellers.
+A MATLAB implementation of a general methodology for propagating uncertainty (aerodynamic uncertainty from manufacturing tolerances as the demonstration) through the complete flight-dynamics pipeline of a small quadrotor UAV, demonstrated on the QAV250 Holybro UAV with APC 5×4.5" three-bladed propellers.
 
-The pipeline runs in five stages. Manufacturing variation in the blade polars and twist is characterised from repeated wind-tunnel measurements. This resulting aerodynamic uncertainty is then propagated through a blade element momentum theory rotor model, a six-degree-of-freedom trim solver, a linearised stability analysis about each trimmed state, a closed-loop pitch manoeuvre, and finally a discrete-time Markov chain that rolls the trim credibility up into a per-flight-hour crash probability over a phased urban mission.
+The pipeline runs in five stages. Manufacturing variation in the blade polars and twist is characterised from repeated wind-tunnel measurements (The uncertainty source). This resulting aerodynamic uncertainty is then propagated through a blade element momentum theory rotor model, a six-degree-of-freedom trim solver, a linearised stability analysis about each trimmed state, a closed-loop pitch manoeuvre, and finally a discrete-time Markov chain that rolls the trim credibility up into a per-flight-hour crash probability over a phased urban mission.
 
 Everything is reproducible from the committed Monte Carlo data files. Every stage can also be re-run from scratch, and the scripts are self-contained except for the DTMC, which reads the trimmed Monte Carlo output.
 
-The methodology is deliberately not specific to the QAV250. The platform parameters and blade polars are isolated in `00_inputs/`, and every stage script exposes its assumptions at the top of the file. Swap in a different rotorcraft, a different mission profile, or a different controller and the pipeline runs the same way.
+The methodology is deliberately not specific to the QAV250. The platform parameters and blade polars are isolated in `00_inputs/`, and every stage script exposes its assumptions at the top of the file. Swap in a different rotorcraft, different uncertainty sources, a different mission profile, or a different controller and the pipeline runs the same way.
 
 ---
 
