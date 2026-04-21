@@ -28,7 +28,7 @@ The committed `.mat` files are the results used in the dissertation. An examiner
 
 ### Airspeed range
 
-Top of each run script, `V_sweep`. ** IT MAY BE BETTER TO USE A LARGER STEP SIZE TO REDUCE RUNTIME!! ** >> RESULTS PRODUCED USE 0.25 M/S STEPS.
+Top of each run script, `V_sweep`. # IT MAY BE BETTER TO USE A LARGER STEP SIZE TO REDUCE RUNTIME!!#  >> RESULTS PRODUCED USE 0.25 M/S STEPS.
 
 ### Number of MC samples
 
