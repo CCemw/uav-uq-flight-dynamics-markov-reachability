@@ -4,6 +4,7 @@ BEng Aerospace Engineering dissertation
 University of Glasgow, 2026
 
 **Author:** Edward Mills-Wierda
+
 **Supervisors:** Dr Ye Yuan (first), Dr Chongfeng Wei (second)
 
 ---
